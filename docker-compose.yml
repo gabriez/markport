@@ -19,7 +19,7 @@ services:
       - ./user-data/vault:${VAULT_PATH:-/app/user-data/vault}
       - ./user-data/registry.json:${VAULT_REGISTRY:-/app/user-data/registry.json}
     networks:
-        - obsidian-network
+      - markport-net
   caddy:
     image: caddy
     container_name: caddy
@@ -36,7 +36,7 @@ services:
       - ./config:/config
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     networks:
-      - obsidian-network
+      - markport-net
 
 volumes:
   caddy_data:
