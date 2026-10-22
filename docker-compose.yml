@@ -37,8 +37,8 @@ services:
       - VAULT_PATH=/app/user-data/vault
       - VAULT_REGISTRY=/app/user-data/registry.json
     volumes:
-      - ./user-data/vault:/app/user-data/vault
-      - ./user-data/registry.json:/app/user-data/registry.json
+      - ${VAULT_PATH:-./user-data/vault}:/app/user-data/vault
+      - ${VAULT_REGISTRY:-./user-data/registry.json}:/app/user-data/registry.json
     networks:
       - markport-net
 
