@@ -10,6 +10,7 @@ RUN apk add --no-cache curl ca-certificates
 COPY scripts/ scripts/
 COPY src/config/ src/config/
 COPY src/runtime-server/server/package*.json src/runtime-server/server/
+COPY src/client-mobile/ src/client-mobile/
 
 # 1. Bajar el APK de Obsidian 1.12.7 y extraer los assets en vendor/obsidian-mobile
 RUN node scripts/update-obsidian-mobile.js --version 1.12.7 && \
