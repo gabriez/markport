@@ -7,7 +7,6 @@ WORKDIR /app
 RUN apk add --no-cache curl ca-certificates
 
 # Copiar paquetes y scripts necesarios para bajar el bundle de Obsidian
-COPY package.json ./
 COPY scripts/ scripts/
 COPY src/config/ src/config/
 COPY src/runtime-server/server/package*.json src/runtime-server/server/
