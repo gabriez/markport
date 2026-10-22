@@ -1,0 +1,43 @@
+services:
+  markport:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: markport-server
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - HOST=${HOST:-192.168.0.2}
+      - PORT=${PORT:-3000}
+      - VAULT_PATH=${VAULT_PATH:-/app/user-data/vault}
+      - VAULT_REGISTRY=${VAULT_REGISTRY:-/app/user-data/registry.json}
+      # Si montas por NFS/SMB o FUSE y chokidar no detecta cambios, descomenta esto:
+      # - WATCH_POLLING=true
+      # - WATCH_POLL_INTERVAL=3000
+    volumes:
+      # Aquí mapeas tu vault real en el host a la ruta dentro del contenedor
+      - ./user-data/vault:${VAULT_PATH:-/app/user-data/vault}
+      - ./user-data/registry.json:${VAULT_REGISTRY:-/app/user-data/registry.json}
+    networks:
+        - obsidian-network
+
+  caddy:
+    image: caddy
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      PUBLIC_HOST=${HOST:-192.168.0.2}
+      PUBLIC_PORT=${PORT:-3000}
+    volumes:
+      - ./data:/data
+      - ./config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      - obsidian-network
+
+networks:
+  obsidian-network:

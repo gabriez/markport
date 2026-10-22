@@ -1,0 +1,9 @@
+node_modules
+.git
+.tmp
+.specstory
+site/node_modules
+site/.astro
+site/.codegraph
+user-data/registry.json
+docs-private
