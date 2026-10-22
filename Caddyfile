@@ -12,6 +12,5 @@ https://{env.PUBLIC_HOST}:{env.PUBLIC_PORT} {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_forwarded}
-        header_up X-Forwarded-Proto {scheme}
     }
 }
