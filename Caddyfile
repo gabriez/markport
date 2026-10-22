@@ -1,17 +1,14 @@
-   {
-       # Desactiva la administración automática por HTTP si no hay dominio
-       admin off
-       auto_https off
-   }
+{
+    admin off
+}
 
-   # Pon tu IP pública exacta aquí (ej: 203.0.113.50)
-   # Usar :443 solo si quieres que escuche en cualquier IP asignada a la máquina en el puerto
-http://{env.PUBLIC_HOST}:5000 {
-    # tls internal
+https://{$PUBLIC_HOST}:5000 {
+    tls internal
 
     reverse_proxy markport:3000 {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_forwarded}
+        header_up X-Forwarded-Proto {scheme}
     }
 }
