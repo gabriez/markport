@@ -1,5 +1,7 @@
 {
     admin off
+    # Le decimos a Caddy que su puerto HTTPS por defecto es el 5000
+    https_port 5000
 }
 
 :5000 {
