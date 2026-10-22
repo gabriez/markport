@@ -2,13 +2,13 @@
     admin off
 }
 
-https://{$PUBLIC_HOST}:5000 {
+:5000 {
     tls internal
 
     reverse_proxy markport:3000 {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_forwarded}
-        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Proto https
     }
 }
