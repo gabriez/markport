@@ -1,10 +1,8 @@
 {
     admin off
-    # Le decimos a Caddy que su puerto HTTPS por defecto es el 5000
-    https_port 5000
 }
 
-:5000 {
+:443 {
     tls internal
 
     reverse_proxy markport:3000 {

@@ -14,7 +14,6 @@ services:
       - VAULT_PATH=/app/user-data/vault
       - VAULT_REGISTRY=/app/user-data/registry.json
     volumes:
-      # Aquí mapeas tu vault real en el host a la ruta dentro del contenedor
       - ${VAULT_PATH:-/app/user-data/vault}:/user-vault/vault
     networks:
       - markport-net
@@ -24,9 +23,8 @@ services:
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "${PUBLIC_PORT:-5000}:5000"
-    environment:
-      - PUBLIC_HOST=${HOST:-192.168.0.2}
+      - "80:80"
+      - "443:443"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
