@@ -16,8 +16,7 @@ services:
       # - WATCH_POLL_INTERVAL=3000
     volumes:
       # Aquí mapeas tu vault real en el host a la ruta dentro del contenedor
-      - ./user-data/vault:${VAULT_PATH:-/app/user-data/vault}
-      - ./user-data/registry.json:${VAULT_REGISTRY:-/app/user-data/registry.json}
+      - ${VAULT_PATH:-/app/user-data/vault}:/user-vault/vault
     networks:
       - markport-net
   caddy:
@@ -29,8 +28,8 @@ services:
       - 443:443
       - ${PUBLIC_PORT:-5000}:5000
     environment:
-      PUBLIC_HOST=${HOST:-192.168.0.2}
-      PUBLIC_PORT=${PUBLIC_PORT:-5000}
+      - PUBLIC_HOST=${HOST:-192.168.0.2}
+      - PUBLIC_PORT=${PUBLIC_PORT:-5000}
     volumes:
       - ./data:/data
       - ./config:/config
