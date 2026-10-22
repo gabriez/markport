@@ -5,7 +5,6 @@ services:
       dockerfile: Dockerfile
     container_name: markport-server
     restart: unless-stopped
-    # No exponemos el 3000 afuera; Caddy es el único que da la cara al exterior
     expose:
       - "3000"
     environment:
@@ -14,29 +13,25 @@ services:
       - VAULT_PATH=/app/user-data/vault
       - VAULT_REGISTRY=/app/user-data/registry.json
     volumes:
-      - ${VAULT_PATH:-/app/user-data/vault}:/user-vault/vault
+      - ./user-data/vault:/app/user-data/vault
+      - ./user-data/registry.json:/app/user-data/registry.json
     networks:
       - markport-net
 
-  caddy:
-    image: caddy:2-alpine
-    container_name: caddy
+  nginx:
+    image: nginx:alpine
+    container_name: markport-proxy
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
     depends_on:
       - markport
     networks:
       - markport-net
-
-volumes:
-  caddy_data:
-  caddy_config:
 
 networks:
   markport-net:
