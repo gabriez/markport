@@ -5,7 +5,7 @@
 
    # Pon tu IP pública exacta aquí (ej: 203.0.113.50)
    # Usar :443 solo si quieres que escuche en cualquier IP asignada a la máquina en el puerto
-https://{env.PUBLIC_HOST}:{env.PUBLIC_PORT} {
+https://{env.PUBLIC_HOST}:5000 {
     tls internal
 
     reverse_proxy markport:3000 {
