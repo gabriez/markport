@@ -15,8 +15,7 @@ COPY src/plugins/ src/plugins/
 # COPY src/plugins/ src/plugins/
 
 # 1. Bajar el APK de Obsidian 1.12.7 y extraer los assets en vendor/obsidian-mobile
-RUN node scripts/update-obsidian-mobile.js --version 1.12.7 && \
-    node scripts/patch-obsidian-mobile.js
+RUN node scripts/update-obsidian-mobile.js --version 1.12.7 #&& node scripts/patch-obsidian-mobile.js
 
 # 2. Instalar dependencias del runtime-server
 WORKDIR /app/src/runtime-server/server
